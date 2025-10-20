@@ -1,19 +1,56 @@
-import { Stepper, Step, StepLabel } from "@mui/material";
+import { Stepper, Step, StepLabel, StepConnector } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const steps = ["Input Objective", "Edit Plan", "Generate Code", "Verify"];
+const customTheme = createTheme({
+  components: {
+    MuiStepConnector: {
+      styleOverrides: {
+        line: {
+          borderColor: "#14a098",
+          borderTopWidth: 4,
+          borderRadius: 2,
+        },
+      },
+    },
+    MuiStepIcon: {
+      styleOverrides: {
+        root: {
+          color: "#501f3a",
+          "&.Mui-active": { color: "#cb2d6f" },
+          "&.Mui-completed": { color: "#14a098" },
+          "& .MuiStepIcon-text": { fill: "#cccccc" },
+        },
+      },
+    },
+  },
+});
 
-interface WorkflowStepperProps {
+const steps = ["🎯 Objective", "📋 Plan", "💻 Code", "✅ Verify"];
+
+export default function WorkflowStepper({
+  activeStep,
+}: {
   activeStep: number;
-}
-
-export default function WorkflowStepper({ activeStep }: WorkflowStepperProps) {
+}) {
   return (
-    <Stepper activeStep={activeStep} alternativeLabel sx={{ mb: 4 }}>
-      {steps.map((label) => (
-        <Step key={label}>
-          <StepLabel>{label}</StepLabel>
-        </Step>
-      ))}
-    </Stepper>
+    <ThemeProvider theme={customTheme}>
+      <Stepper
+        activeStep={activeStep}
+        sx={{ mb: 4, bgcolor: "transparent" }}
+        connector={<StepConnector />}
+      >
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel
+              sx={{
+                "& .MuiStepLabel-label": { color: "#cccccc", fontWeight: 500 },
+              }}
+            >
+              {label}
+            </StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </ThemeProvider>
   );
 }

@@ -1,23 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary: #14a098;
+  --secondary: #cb2d6f;
+  --accent: #cccccc;
+  --surface: #501f3a;
+  --background: #0f292f;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #0f292f 0%, #1a3c45 100%);
+  color: var(--accent);
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(80, 31, 58, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(20, 160, 152, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(20, 160, 152, 0.1);
+}
+
+/* Animated Gradient Border */
+.gradient-border {
+  position: relative;
+  border-radius: 12px;
+  padding: 3px;
+  background: linear-gradient(45deg, #14a098, #cb2d6f, #cccccc, #14a098);
+  background-size: 400%;
+  animation: gradient 8s ease infinite;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  bottom: 3px;
+  left: 3px;
+  background: var(--surface);
+  border-radius: 10px;
+  z-index: -1;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Code Block Styling */
+pre {
+  background: #0f292f !important;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #14a098;
+  color: #cccccc;
+  font-family: "Consolas", "Monaco", monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
 }

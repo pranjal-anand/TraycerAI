@@ -6,18 +6,27 @@ interface TaskInputProps {
   onGenerate: () => void;
 }
 
-export default function TaskInput({ objective, setObjective, onGenerate }: TaskInputProps) {
+export default function TaskInput({
+  objective,
+  setObjective,
+  onGenerate,
+}: TaskInputProps) {
   return (
-    <Box sx={{ display: "flex", gap: 2, mb: 4 }}>
+    <Box
+      className="glass-card"
+      sx={{ display: "flex", gap: 2, p: 3, mt: 3, mb: 4 }}
+    >
       <TextField
         fullWidth
         label="Enter your coding objective"
         value={objective}
         onChange={(e) => setObjective(e.target.value)}
         variant="outlined"
+        placeholder="e.g., Build a todo app with React"
+        InputLabelProps={{ style: { color: "#cccccc" } }}
       />
-      <Button variant="contained" onClick={onGenerate}>
-        Generate Plan
+      <Button variant="contained" onClick={onGenerate} size="large">
+        🎯 Generate Plan
       </Button>
     </Box>
   );
