@@ -52,14 +52,14 @@ export default function TaskInput({
             variant="outlined"
             placeholder="e.g., Build a todo app with React"
             InputLabelProps={{ style: { color: "#cccccc" } }}
-            className="w-full p-3 text-white bg-gray-700 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-150 resize-none"
+            className="w-full p-3 text-white bg-gray-700 border border-gray-600 rounded-lg transition duration-150 resize-none"
             disabled={isLoading || isExecuting}
           />
           <Button
             variant="contained"
             onClick={onGenerate}
             disabled={isLoading || isExecuting || !objective.trim()}
-            className="w-full mt-4 py-3 text-lg font-bold text-white transition duration-200 bg-purple-600 rounded-lg shadow-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            className="w-full mt-4 py-3 text-lg font-bold text-white transition duration-200 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
             {isLoading && (
               <CircularProgress size={20} color="inherit" className="mr-2" />

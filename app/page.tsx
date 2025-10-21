@@ -17,6 +17,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
+
   const [verification, setVerification] = useState<{
     issues: string[];
     strengths: string[];
@@ -113,6 +114,9 @@ export default function Home() {
                     setPlan={setPlan}
                     onExecute={handleExecute}
                     isLoading={isLoading}
+                    isEditing={isEditing}
+                    isExecuting={isExecuting}
+                    setIsEditing={setIsEditing}
                   />
                 </Box>
               </Fade>
