@@ -16,16 +16,35 @@ const customTheme = createTheme({
       styleOverrides: {
         root: {
           color: "#501f3a",
+          // Controls the icon border/circle color when active
           "&.Mui-active": { color: "#cb2d6f" },
           "&.Mui-completed": { color: "#14a098" },
+          // Existing rule for default/inactive text color
           "& .MuiStepIcon-text": { fill: "#cccccc" },
+        },
+      },
+    },
+    // Overrides for StepLabel
+    MuiStepLabel: {
+      styleOverrides: {
+        // style the label slot and use class selectors for active/completed states
+        label: {
+          color: "#cccccc",
+          fontWeight: 500,
+          "&.Mui-active": {
+            color: "#cb2d6f",
+            fontWeight: 600,
+          },
+          "&.Mui-completed": {
+            color: "#14a098",
+          },
         },
       },
     },
   },
 });
 
-const steps = ["🎯 Objective", "📋 Plan", "💻 Code", "✅ Verify"];
+const steps = ["Objective", "Plan", "Code", "Verify"];
 
 export default function WorkflowStepper({
   activeStep,
@@ -42,9 +61,6 @@ export default function WorkflowStepper({
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel
-              sx={{
-                "& .MuiStepLabel-label": { color: "#cccccc", fontWeight: 500 },
-              }}
             >
               {label}
             </StepLabel>

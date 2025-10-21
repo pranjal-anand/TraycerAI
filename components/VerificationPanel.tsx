@@ -11,7 +11,7 @@ export default function VerificationPanel({
   return (
     <Box className="glass-card" sx={{ p: 3, mt: 3, mb: 4 }}>
       <Typography variant="h6" sx={{ mb: 2, color: "#cb2d6f" }}>
-        ✅ Verification Results
+        Verification Results
       </Typography>
       <List>
         {verification.strengths.map((strength, i) => (

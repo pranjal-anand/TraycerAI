@@ -2,46 +2,55 @@
 
 import { useState } from "react";
 import { Container, Box, Fade, Typography, Button } from "@mui/material";
-import TaskInput from "@/components/TaskInput";
-import PlanEditor from "@/components/PlanEditor";
-import WorkflowStepper from "@/components/WorkflowStepper";
-import CodeViewer from "@/components/CodeViewer";
-import VerificationPanel from "@/components/VerificationPanel";
-import { PlanItem } from "@/lib/types";
-import { generatePlan } from "@/lib/mockLLM";
+import TaskInput from "../components/TaskInput";
+import PlanEditor from "../components/PlanEditor";
+import WorkflowStepper from "../components/WorkflowStepper";
+import CodeViewer from "../components/CodeViewer";
+import VerificationPanel from "../components/VerificationPanel";
+import { PlanItem } from "../lib/types";
+import { generatePlan } from "../lib/mockLLM";
 
 export default function Home() {
   const [objective, setObjective] = useState<string>("");
   const [plan, setPlan] = useState<PlanItem[]>([]);
   const [code, setCode] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isExecuting, setIsExecuting] = useState(false);
   const [verification, setVerification] = useState<{
     issues: string[];
     strengths: string[];
   }>({ issues: [], strengths: [] });
   const [step, setStep] = useState<number>(0);
 
+  // Generates the plan (simulated LLM call)
   const handleGeneratePlan = async () => {
     if (!objective) return;
-    const generatedPlan = await generatePlan(objective);
-    setPlan(generatedPlan);
+    setIsLoading(true);
+    setPlan([]);
+    setIsEditing(false);
+    setIsExecuting(false);
+
+    // Simulate API latency
+    setTimeout(async () => {
+      const generatedPlan = await generatePlan(objective);
+      setPlan(generatedPlan);
+      setIsLoading(false);
+    }, 1500);
     setStep(1); // Move to Edit Plan
   };
 
   const handleExecute = () => {
     setCode(
-      `// Generated for: ${objective}\nconsole.log("✅ Plan executed successfully!");`
+      `// Generated for: ${objective}\nconsole.log("Plan executed successfully!");`
     );
     setStep(2); // Move to Generate Code
   };
 
   const handleVerify = () => {
     setVerification({
-      issues: ["🔧 Minor: Add error handling"],
-      strengths: [
-        "✅ Clean architecture",
-        "✅ Modular design",
-        "✅ Best practices",
-      ],
+      issues: ["Minor: Add error handling"],
+      strengths: ["Clean architecture", "Modular design", "Best practices"],
     });
     setStep(3); // Move to Verify
   };
@@ -67,8 +76,9 @@ export default function Home() {
             <Box sx={{ textAlign: "center", mb: 4 }}>
               <Typography
                 variant="h3"
+                className="text-4xl font-extrabold" // Use className for size/weight if they are pure Tailwind classes
                 sx={{
-                  fontWeight: 700,
+                  ontWeight: 700,
                   background: "linear-gradient(45deg, #cb2d6f, #14a098)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -76,8 +86,12 @@ export default function Home() {
               >
                 PlanFirstCoder
               </Typography>
-              <Typography variant="subtitle1" sx={{ color: "#cccccc", mt: 1 }}>
-                Simplified Traycer AI • Plan-Driven AI Coding
+              <Typography
+                variant="subtitle1"
+                className="mt-2 text-lg text-gray-400"
+              >
+                Simplified Traycer AI • Plan-Driven AI Coding : **Plan,
+                Validate, Execute.**
               </Typography>
             </Box>
 
@@ -87,6 +101,8 @@ export default function Home() {
               objective={objective}
               setObjective={setObjective}
               onGenerate={handleGeneratePlan}
+              isLoading={isLoading}
+              isExecuting={isExecuting}
             />
 
             {step >= 1 && (
@@ -96,6 +112,7 @@ export default function Home() {
                     plan={plan}
                     setPlan={setPlan}
                     onExecute={handleExecute}
+                    isLoading={isLoading}
                   />
                 </Box>
               </Fade>
@@ -116,7 +133,7 @@ export default function Home() {
                       "&:hover": { bgcolor: "#cb2d6f" },
                     }}
                   >
-                    ✅ Verify
+                    Verify
                   </Button>
                 </Box>
               </Fade>

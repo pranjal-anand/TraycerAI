@@ -8,7 +8,7 @@ export default function CodeViewer({ code }: CodeViewerProps) {
   return (
     <Box className="glass-card gradient-border" sx={{ p: 3, mt: 3, mb: 4 }}>
       <Typography variant="h6" sx={{ mb: 2, color: "#cb2d6f" }}>
-        💻 Generated Code
+        Generated Code
       </Typography>
       <pre>{code}</pre>
     </Box>
