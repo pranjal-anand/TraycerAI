@@ -7,7 +7,7 @@ Simplified version of Traycer AI.
 2. npm run dev
 
 ## Improvements
-- Use real LLM API for plan generation (e.g., xAI Grok API).
+- Use real LLM API for plan generation.
 - Add drag-and-drop in PlanEditor.
 - Integrate with actual coding agents via extensions.
 
